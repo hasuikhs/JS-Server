@@ -7,6 +7,8 @@ import { ApiController } from './api/api.controller';
 import { ApiModule } from './api/api.module';
 import { RouterModule } from '@nestjs/core';
 import { JsModule } from './api/js/js.module';
+import { UsersService } from './users/users.service';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -23,7 +25,8 @@ import { JsModule } from './api/js/js.module';
           }
         ]
       }
-    ])
+    ]),
+    UsersModule
   ],
   controllers: [AppController, AuthController, ApiController],
   providers: [AppService],
