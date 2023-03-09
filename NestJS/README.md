@@ -7,11 +7,16 @@
 - 기본적으로 express.js를 기반으로 작동하지만 fastify로 작동 가능
 
 ## guards
+- 인증된 사용자, 권한 체크는 가장 앞서서 확인되어야 함
+- intercetor에 해당 내용 구성 가능하지만
+  - interceptor로 구현을 한다면 interceptor decorator에 순서에 맞게 구성을 해야함, 순서가 바뀐다면 안타도 될 로직을 탈 수 도 있음
+  - 그를 대비하여 nestjs의 request lifecycle에서 더 앞선 단계인 guard를 사용하여 처리하여 불필요한 자원낭비 방지
 
 ## interceptor
 - AOP(Aspect Oriented Programming, 관점 지향 프로그래밍)에 영감을 받아 만들어짐
   - Aspect로 모듈화하고 핵심적인 비즈니스 로직에서 분리하여 재사용
 - request와 responese시에 중간에서 값을 intercept한 뒤, 보내는 역할
+  - nestjs에서의 interceptor는 spring과 같이 pre와, post
 - 추가적인 로직이 필요한 경우 사용
   - Logger 사용에 주로 쓰임
     - Logger의 경우 request에 대한 정보, response에 대한 정보를 logging해야 하기에 구현하기 좋음
