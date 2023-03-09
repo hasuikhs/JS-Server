@@ -18,6 +18,7 @@ export class AuthController {
 
   @Post('signin')
   async signIn(@Body() user: User) {
-    return await this.authService.validateUser(user.userId, user.password);
+    return 'hi'
+    // return await this.authService.validateUser(user.userId, user.password);
   }
 }

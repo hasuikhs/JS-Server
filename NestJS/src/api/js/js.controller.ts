@@ -1,11 +1,11 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
+import { Controller, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from 'src/auth/auth.guard';
 
 @UseGuards(AuthGuard)
-@Controller('js')
+@Controller()
 export class JsController {
-  @Get('test')
-  test() {
-    return 'api/js/test'
+  @Post()
+  init() {
+    return 'Init ApiController > JsController';
   }
 }
