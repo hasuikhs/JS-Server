@@ -1,19 +1,55 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+import { ConfigService } from '@nestjs/config';
 import { UserService } from 'src/user/user.service';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private jwtService: JwtService,
+    private configService: ConfigService
+    ) {}
 
-  async validateUser(userId: string, password: string):  Promise<any> {
+  async validateUser(userId: string, reqPassword: string):  Promise<any> {
     const user = await this.userService.findOne(userId);
-    if (user && bcrypt.compareSync(password, user?.password)) {
-      const { password, ...result } = user; // 비밀번호를 제외한 결과
+    if (!user) throw new BadRequestException('Not exist user ID');
 
-      return result;
-    }
+    const matchPassword = bcrypt.compareSync(reqPassword, user?.password);
+    if (!matchPassword) throw new BadRequestException('Incorrect password');
 
-    return null;
+    const { password, ...result } = user;
+
+    const tokens = await this.getTokens(userId, user?.username);
+
+    return tokens;
+  }
+
+  async getTokens(userId: string, username: string) {
+    const [accessToken, refreshToken] = await Promise.all([
+      this.jwtService.signAsync(
+        {
+          sub: userId,
+          username
+        },
+        {
+          secret: `this.configService.get<string>('JWT_ACCESS_SECRET')`,
+          expiresIn: '5m'
+        }
+      ),
+      this.jwtService.signAsync(
+        {
+          sub: userId,
+          username
+        },
+        {
+          secret: `this.configService.get<string>('JWT_REFRESH_SECRET')`,
+          expiresIn: '1d'
+        }
+      )
+    ]);
+
+    return { accessToken, refreshToken };
   }
 }

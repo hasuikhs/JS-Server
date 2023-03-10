@@ -1,8 +1,9 @@
 import { Controller, Post, UseGuards, UseInterceptors } from '@nestjs/common';
-import { AuthGuard } from 'src/auth/auth.guard';
+import { AuthenticationGuard } from 'src/auth/auth.guard';
+import { AccessTokenGuard } from 'src/auth/guard/accessToken.guard';
 import { LoggingInterceptor } from 'src/interceptors/logging.interceptor';
 
-@UseGuards(AuthGuard)
+@UseGuards(AuthenticationGuard, AccessTokenGuard)
 @UseInterceptors(LoggingInterceptor)
 @Controller()
 export class ApiController {
