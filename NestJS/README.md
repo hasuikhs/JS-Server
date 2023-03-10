@@ -16,7 +16,7 @@
 - AOP(Aspect Oriented Programming, 관점 지향 프로그래밍)에 영감을 받아 만들어짐
   - Aspect로 모듈화하고 핵심적인 비즈니스 로직에서 분리하여 재사용
 - request와 responese시에 중간에서 값을 intercept한 뒤, 보내는 역할
-  - nestjs에서의 interceptor는 spring과 같이 pre와, post
+  - nestjs에서의 interceptor는 spring과 같이 pre와, post가 존재하지 않아 요청, 응답시 실행됨
 - 추가적인 로직이 필요한 경우 사용
   - Logger 사용에 주로 쓰임
     - Logger의 경우 request에 대한 정보, response에 대한 정보를 logging해야 하기에 구현하기 좋음
