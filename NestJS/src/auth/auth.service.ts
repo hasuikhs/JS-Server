@@ -19,7 +19,7 @@ export class AuthService {
     const matchPassword = bcrypt.compareSync(reqPassword, user?.password);
     if (!matchPassword) throw new BadRequestException('Incorrect password');
 
-    const { password, ...result } = user;
+    // const { password, ...result } = user;
 
     const tokens = await this.getTokens(userId, user?.username);
 
