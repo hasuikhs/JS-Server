@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <button id="submit" type="submit">WS TEST</button>
+  <script>
+    const socket = new WebSocket('ws://localhost:3030');
+    socket.onopen = () => {
+      socket.onmessage = data => {
+        console.log(data);
+      }
+    }
+
+    const btnSubmit = document.querySelector('#submit');
+    btnSubmit.addEventListener('click', () => {
+      socket.send(
+        JSON.stringify({
+          event: 'ws',
+          data: 'websocket submit test'
+        })
+      );
+    });
+
+  </script>
+</body>
+</html>

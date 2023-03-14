@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { ApiModule } from './api/api.module';
 import { ConfigModule } from '@nestjs/config/dist';
+import { WsModule } from './ws/ws.module';
 
 @Module({
   imports: [
@@ -12,7 +13,8 @@ import { ConfigModule } from '@nestjs/config/dist';
       isGlobal: true
     }),
     AuthModule,
-    ApiModule
+    ApiModule,
+    WsModule
   ],
   controllers: [AppController],
   providers: [AppService, JwtService],
