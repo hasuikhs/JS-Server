@@ -10,7 +10,7 @@ export class AuthService {
     private userService: UserService,
     private jwtService: JwtService,
     private configService: ConfigService
-    ) {}
+  ) {}
 
   async validateUser(userId: string, reqPassword: string):  Promise<any> {
     const user = await this.userService.findOne(userId);
