@@ -1,4 +1,4 @@
-import { Controller, Post, UseGuards, UseInterceptors } from '@nestjs/common';
+import { UseGuards, UseInterceptors } from '@nestjs/common';
 import {
   SubscribeMessage,
   WebSocketGateway,
@@ -20,7 +20,6 @@ export class WsGateway {
 
   @SubscribeMessage('ws')
   onEvent(client: any, data: any): Observable<WsResponse<number>> {
-    console.log(data)
     return from([1]).pipe(map(item => ({ event: 'ws', data: item })));
   }
 }
