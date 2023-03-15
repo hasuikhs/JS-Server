@@ -11,11 +11,13 @@
   <script>
     const socket = new WebSocket('ws://localhost:3030');
     socket.onopen = () => {
-      socket.onmessage = data => {
-        console.log(data);
+      console.log('Socket connected');
+
+      socket.onmessage = ({ data }) => {
+        console.log(JSON.parse(data));
       }
     }
-
+    
     const btnSubmit = document.querySelector('#submit');
     btnSubmit.addEventListener('click', () => {
       socket.send(
