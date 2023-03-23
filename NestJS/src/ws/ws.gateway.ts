@@ -8,8 +8,8 @@ import {
 } from '@nestjs/websockets';
 import { from, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { AuthenticationGuard } from 'src/auth/auth.guard';
-import { LoggingInterceptor } from 'src/interceptors/logging.interceptor';
+import { AuthenticationGuard } from '../auth/auth.guard';
+import { LoggingInterceptor } from '../interceptors/logging.interceptor';
 import { Server } from 'ws';
 
 @UseGuards(AuthenticationGuard)
