@@ -12,6 +12,9 @@ export class ResponseInterceptor implements NestInterceptor {
           const res = context.switchToHttp().getResponse();
 
           res.header('foo', 'bar');
+          res.cookie('test', 'hi', {
+            httpOnly: true
+          });
         })
       );
   }
